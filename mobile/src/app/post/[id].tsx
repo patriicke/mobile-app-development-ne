@@ -42,14 +42,14 @@ export default function PostScreen() {
       setPosts(updatedPosts);
       toast.show("Post deleted successfully", {
         type: "success",
-        duration: 1000
+        duration: 2000
       });
       router.back();
     } catch (error) {
       console.log(error);
       toast.show("Failed to delete post", {
         type: "error",
-        duration: 1000
+        duration: 2000
       });
     } finally {
       setIsLoading(false);

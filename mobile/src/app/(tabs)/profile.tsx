@@ -63,10 +63,10 @@ export default function ProfileScreen() {
       ]);
       toast.show("Post created successfully", {
         type: "success",
-        duration: 1000
+        duration: 2000
       });
     } catch (error) {
-      toast.show("Failed to create post", { type: "danger", duration: 1000 });
+      toast.show("Failed to create post", { type: "danger", duration: 2000 });
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -83,7 +83,7 @@ export default function ProfileScreen() {
       dispath(removeTokensRedux());
       toast.show("Logged out successfully", {
         type: "success",
-        duration: 1000
+        duration: 2000
       });
       router.push("/(auth)/login");
     }
@@ -107,7 +107,9 @@ export default function ProfileScreen() {
               <Text className='font-bold text-2xl text-gray-800 dark:text-white mb-1'>
                 {userData.firstName} {userData.lastName}
               </Text>
-              <Text className='text-lg text-fifth mb-1 '>{userData.email}</Text>
+              <Text className='text-lg text-primary-500 mb-1 '>
+                {userData.email}
+              </Text>
               <View className='inline-flex text-gray-700 dark:text-gray-300 items-center'>
                 <MaterialIcons name='location-on' size={28} />
                 <Text>Kigali, Rwanda</Text>

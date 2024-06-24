@@ -329,6 +329,12 @@ export class UsersService {
         payload: null,
       });
     } catch (error) {
+      if (error instanceof NotFoundCustomException) {
+        throw new NotFoundCustomException('Email Not found');
+      }
+      if (error instanceof BadRequestCustomException) {
+        throw new BadRequestCustomException('Bad request');
+      }
       throw new InternalServerErrorCustomException('Interal Server Error');
     }
   }

@@ -14,7 +14,7 @@ const Loader = (props: LoaderProps) => {
       Animated.loop(
         Animated.timing(rotateAnim, {
           toValue: 1,
-          duration: 1000,
+          duration: 2000,
           easing: Easing.linear,
           useNativeDriver: true
         })

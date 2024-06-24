@@ -12,7 +12,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className='bg-fifth rounded-md w-full justify-center items-center min-h-[50px]'
+      className='bg-primary-500 rounded-md w-full justify-center items-center min-h-[50px]'
       {...props}
     >
       <Text className='text-white font-bold'>

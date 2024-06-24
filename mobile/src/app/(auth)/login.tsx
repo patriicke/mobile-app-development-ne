@@ -42,7 +42,7 @@ const Login = () => {
       router.push("/(tabs)/home");
       toast.show("Login Successful", {
         type: "success",
-        duration: 1000
+        duration: 2000
       });
     } catch (error: any) {
       if (error instanceof CustomError) setError(error.response.message);
@@ -66,7 +66,7 @@ const Login = () => {
         >
           <Text className='text-4xl font-bold'>
             Post
-            <Text className='text-fifth'>Share</Text>
+            <Text className='text-primary-500'>Share</Text>
           </Text>
         </TouchableOpacity>
         <View className='flex flex-col items-center gap-2 py-5'>
@@ -94,7 +94,7 @@ const Login = () => {
                 onBlur={handleBlur("username")}
                 value={values.username}
                 error={touched.username ? errors.username : ""}
-                placeholder='First Name'
+                placeholder='Email or Username'
                 icon={<FontAwesome name='user-o' size={18} color='#b1b6c8' />}
               />
 
@@ -130,7 +130,7 @@ const Login = () => {
         <View className='flex flex-col items-center pt-5 gap-4'>
           <Text className='text-third mt-2'>
             Don't have an account?{" "}
-            <Link href='/(auth)/signup' className='text-fifth font-bold'>
+            <Link href='/(auth)/signup' className='text-primary-500 font-bold'>
               Register
             </Link>
           </Text>
@@ -138,7 +138,7 @@ const Login = () => {
             Forgot Password?{" "}
             <Link
               href='/(auth)/reset-password'
-              className='text-fifth font-bold'
+              className='text-primary-500 font-bold'
             >
               Reset
             </Link>

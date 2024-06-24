@@ -24,7 +24,7 @@ const ResetPassword = () => {
         >
           <Text className='text-4xl font-bold'>
             Post
-            <Text className='text-fifth'>Share</Text>
+            <Text className='text-primary-500'>Share</Text>
           </Text>
         </TouchableOpacity>
         <View className='flex flex-col items-center gap-2 py-5'>
@@ -39,7 +39,7 @@ const ResetPassword = () => {
         <View className='flex flex-col items-center pt-5 gap-4'>
           <Text className='text-third mt-2'>
             Don't have an account?{" "}
-            <Link href='/(auth)/signup' className='text-fifth font-bold'>
+            <Link href='/(auth)/signup' className='text-primary-500 font-bold'>
               Register
             </Link>
           </Text>

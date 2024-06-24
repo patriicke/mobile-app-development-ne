@@ -1,9 +1,12 @@
 import { FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { Formik } from "formik";
+import { useState } from "react";
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 import * as Yup from "yup";
 
+import { reset_password } from "@/api/auth";
 import { Button } from "@/components/elements/button";
 import { TextInput } from "@/components/elements/input";
 
@@ -27,8 +30,30 @@ const ResetPasswordConfirmed = () => {
     confirm_password: ""
   };
 
-  const handleSubmit = (data: ResetPasswordPayload) => {
-    router.push("/(auth)/reset-password-success");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (payload: ResetPasswordPayload) => {
+    try {
+      setError("");
+      setIsLoading(true);
+      const resetToken = await AsyncStorage.getItem("reset_token");
+      if (!resetToken) {
+        router.push("/(auth)/reset-password");
+        return;
+      }
+      await reset_password({
+        newPassword: payload.password,
+        resetToken
+      });
+      await AsyncStorage.removeItem("reset_token");
+      await AsyncStorage.setItem("reset_success", "true");
+      router.push("/(auth)/reset-password-success");
+    } catch (error: any) {
+      setError(error.response.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -46,7 +71,7 @@ const ResetPasswordConfirmed = () => {
         >
           <Text className='text-4xl font-bold'>
             Post
-            <Text className='text-fifth'>Share</Text>
+            <Text className='text-primary-500'>Share</Text>
           </Text>
         </TouchableOpacity>
         <View className='flex flex-col items-center gap-2 py-5'>
@@ -89,10 +114,17 @@ const ResetPasswordConfirmed = () => {
                 isSecret={true}
               />
 
+              {error && (
+                <View className='w-full py-2'>
+                  <Text className='text-red-500'>{error}</Text>
+                </View>
+              )}
+
               <Button
                 disabled={!isValid}
                 title='Submit'
                 onPress={() => handleSubmit()}
+                isLoading={isLoading}
               />
             </>
           )}

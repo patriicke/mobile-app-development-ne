@@ -71,7 +71,7 @@ const SignupScreen = () => {
       router.push("/(tabs)/home");
       toast.show("Registerd Successful", {
         type: "success",
-        duration: 1000
+        duration: 2000
       });
     } catch (error: any) {
       setError(error.response.message);
@@ -90,7 +90,7 @@ const SignupScreen = () => {
         >
           <Text className='text-4xl font-bold'>
             Post
-            <Text className='text-fifth'>Share</Text>
+            <Text className='text-primary-500'>Share</Text>
           </Text>
         </TouchableOpacity>
 
@@ -206,7 +206,7 @@ const SignupScreen = () => {
         <View className='flex flex-col items-center pt-5'>
           <Text className='text-third mt-2'>
             Already have an account?{" "}
-            <Link href='/(auth)/login' className='text-fifth font-bold'>
+            <Link href='/(auth)/login' className='text-primary-500 font-bold'>
               Log In
             </Link>
           </Text>

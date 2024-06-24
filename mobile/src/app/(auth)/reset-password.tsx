@@ -1,11 +1,15 @@
 import { FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router, Link } from "expo-router";
 import { Formik } from "formik";
+import { useState } from "react";
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
 import * as Yup from "yup";
 
+import { request_reset_password } from "@/api/auth";
 import { Button } from "@/components/elements/button";
 import { TextInput } from "@/components/elements/input";
+import { CustomError } from "@/libs";
 import { AuthRequestResetPasswordRequestPayload } from "@/types/auth";
 
 const ResetPassword = () => {
@@ -19,9 +23,23 @@ const ResetPassword = () => {
     email: ""
   };
 
-  const handleSubmit = (data: AuthRequestResetPasswordRequestPayload) => {
-    console.log(data);
-    router.push("/(auth)/reset-password-verification-code");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (
+    payload: AuthRequestResetPasswordRequestPayload
+  ) => {
+    try {
+      setError("");
+      setIsLoading(true);
+      await request_reset_password(payload);
+      await AsyncStorage.setItem("resetting_email", payload.email);
+      router.push("/(auth)/reset-password-verification-code");
+    } catch (error: any) {
+      if (error instanceof CustomError) setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -39,7 +57,7 @@ const ResetPassword = () => {
         >
           <Text className='text-4xl font-bold'>
             Post
-            <Text className='text-fifth'>Share</Text>
+            <Text className='text-primary-500'>Share</Text>
           </Text>
         </TouchableOpacity>
         <View className='flex flex-col items-center gap-2 py-5'>
@@ -71,10 +89,15 @@ const ResetPassword = () => {
                 icon={<FontAwesome name='user-o' size={18} color='#b1b6c8' />}
               />
 
+              <View className='w-full py-2'>
+                <Text className='text-red-500'>{error}</Text>
+              </View>
+
               <Button
                 disabled={!isValid}
                 title='Submit'
                 onPress={() => handleSubmit()}
+                isLoading={isLoading}
               />
             </>
           )}
@@ -82,7 +105,7 @@ const ResetPassword = () => {
         <View className='flex flex-col items-center pt-5 gap-4'>
           <Text className='text-third mt-2'>
             Don't have an account?{" "}
-            <Link href='/(auth)/signup' className='text-fifth font-bold'>
+            <Link href='/(auth)/signup' className='text-primary-500 font-bold'>
               Register
             </Link>
           </Text>
