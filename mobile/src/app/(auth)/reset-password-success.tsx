@@ -6,7 +6,7 @@ import { Button } from "@/components/elements/button";
 
 const ResetPassword = () => {
   const handleSubmit = () => {
-    router.push("/");
+    router.push("/(auth)/login");
   };
 
   return (
@@ -35,7 +35,7 @@ const ResetPassword = () => {
           <Image source={Success} style={{ width: 150, height: 150 }} />
         </View>
 
-        <Button title='Submit' onPress={() => handleSubmit()} />
+        <Button title='Done' onPress={() => handleSubmit()} />
         <View className='flex flex-col items-center pt-5 gap-4'>
           <Text className='text-third mt-2'>
             Don't have an account?{" "}

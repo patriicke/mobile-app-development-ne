@@ -11,7 +11,7 @@ import { AuthRequestResetPasswordRequestPayload } from "@/types/auth";
 const ResetPassword = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required("Password is required")
+      .required("Email is required")
       .email("Invalid email address")
   });
 
