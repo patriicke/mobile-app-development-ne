@@ -1,7 +1,12 @@
 import axios from "axios";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 
 import { View } from "@/components/elements/view";
 import { usePosts } from "@/provider/PostsProvider";
@@ -40,7 +45,9 @@ export default function HomeSceen() {
       </View>
 
       {isLoading ? (
-        <Text className='py-2'>Loading...</Text>
+        <View className='py-4'>
+          <ActivityIndicator size='large' color='#0000ff' />
+        </View>
       ) : (
         posts.map((post) => (
           <TouchableOpacity
