@@ -6,7 +6,14 @@ import {
 import { Link, router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
+} from "react-native";
 import { useToast } from "react-native-toast-notifications";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -74,12 +81,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        height: "100%",
-        marginTop: 160
-      }}
-    >
+    <ScrollView className='flex gap-2 p-3 mt-[160px]'>
       <View className='h-full bg-white w-full rounded-t-[25px] flex items-center px-5 py-6'>
         <TouchableOpacity
           onPress={() => {
